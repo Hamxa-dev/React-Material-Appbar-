@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Login } from "../../screens/login/Login";
+import Login from '/src/screens/login/Login.jsx';
 import { Register } from "../../screens/register/Register";
 import Home from "../../screens/home/Home";
 import ResponsiveAppBar from "../../components/Navbar";
