@@ -37,7 +37,7 @@ export const Login = () => {
   }
   return (
     <>
-      <Box sx={{ height: '80vh' }} className='d-flex justify-content-center align-item-center'>
+      <Box sx={{ height: '80vh'}} className='d-flex justify-content-center  align-item-center'>
         <form onSubmit={login} className='d-flex justify-content-center flex-column w-25 gap-3'>
         <h1>Login</h1>
         <TextField id="email" inputRef={email} label="Email" variant="outlined" required />
