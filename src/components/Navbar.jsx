@@ -44,6 +44,7 @@ function ResponsiveAppBar() {
     }
  
   const handleOpenNavMenu = (event) => {
+    
     setAnchorElNav(event.currentTarget);
   };
   const handleOpenUserMenu = (event) => {
@@ -177,7 +178,7 @@ Navigate(`/${page}`)
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="./channels4_profile.jpg" />
+                <Avatar alt="Remy Sharp" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkPdDNJc2RUMDiieJ59yx3dBJaAGVqWt86yA&usqp=CAU" />
               </IconButton>
             </Tooltip>
             <Menu

@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { db } from '../../config/FirebaseConfig/FirebaseConfig';
-import { collection, addDoc, getDocs, deleteDoc, doc } from 'firebase/firestore';
+import { collection, addDoc, getDocs, deleteDoc, doc, setDoc } from 'firebase/firestore';  // Added 'setDoc'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -16,7 +16,7 @@ const Home = () => {
       const querySnapshot = await getDocs(collection(db, 'todo'));
       const todos = [];
       querySnapshot.forEach((doc) => {
-        todos.push({ id: doc.id, todo: doc.data().todo });
+        todos.unshift({ id: doc.id, todo: doc.data().todo });
       });
       setData(todos);
     };
@@ -32,7 +32,7 @@ const Home = () => {
       setLoading(true);
 
       if (editingIndex !== null) {
-        // Edit existing todo
+        // Edit  todo
         const todoId = data[editingIndex].id;
         await updateTodoInFirestore(todoId, newTodo);
         setData((prevData) => {
@@ -47,7 +47,7 @@ const Home = () => {
           todo: newTodo,
         });
         console.log('Document written with ID: ', docRef.id);
-        setData((prevData) => [...prevData, { id: docRef.id, todo: newTodo }]);
+        setData((prevData) => [{ id: docRef.id, todo: newTodo }, ...prevData]);
       }
 
       ref.current.value = '';
@@ -89,17 +89,17 @@ const Home = () => {
           variant="filled"
           placeholder="Enter todo"
           required
-          style={{ width: '300px', marginBottom: '10px' }}
-        />
-        <Button type="submit" variant="contained" disabled={loading}>
-          {loading ? <CircularProgress size={20} sx={{ color: 'white' }} /> : editingIndex !== null ? 'Edit Todo' : 'Add Todo'}
-        </Button>
+          style={{ width: '320px', marginBottom: '10px' }}
+        /> <Button type="submit" variant="contained" disabled={loading}>
+        {loading ? <CircularProgress size={20} sx={{ color: 'white' }} /> : editingIndex !== null ? 'Edit Todo' : 'Add Todo'}
+      </Button>
+       
       </form>
       <ul style={{ listStyleType: 'none', padding: 0, marginTop: '20px', textAlign: 'center' }}>
         {data.map((el, ind) => (
           <li
             key={el.id}
-            style={{ marginBottom: '5px', gap:'90px', border: '1px solid #ccc', padding: '10px', borderRadius: '9px', display: 'flex', justifyContent: 'space-between' }}
+            style={{ marginBottom: '5px', gap: '5px', border: '2px solid #ccc', padding: '10px', borderRadius: '9px', display: 'flex', justifyContent: 'space-between', textOverflow: 'ellipsis', overflow: 'auto' ,width: '320px', height:'50px' }}
           >
             <span>{el.todo}</span>
             <div>
