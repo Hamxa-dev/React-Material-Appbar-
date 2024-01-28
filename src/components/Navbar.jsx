@@ -37,10 +37,10 @@ function ResponsiveAppBar() {
 
     if(isUser){
         pages = [];
-        settings = ['home','logout']
+        settings = ['home','logout', 'register']
     }else{
-        pages = ['home', 'login', 'register'];
-        settings = ['home', 'login', 'register'];
+        pages = [ 'login', 'register'];
+        settings = [ 'login', 'register'];
     }
  
   const handleOpenNavMenu = (event) => {
@@ -61,30 +61,30 @@ function ResponsiveAppBar() {
 
 
     console.log('button click' ,page);
-    Navigate(`/${page}`)
+    Navigate(`/${"/"}`)
   };
-  
   const handleCloseUserMenu = (page) => {
     setAnchorElUser(null);
+  
     if (page === 'home') {
-      Navigate('/')      
-      console.log('button click', page);
+      Navigate('/');
       return;
+    }
+  
+    if (page === 'logout') {
+      signOut(auth).then(() => {
+          setIsUser(false);
+          Navigate('/login');
+      }).catch((error) => {
+          console.log(error);
+      });
+      return;
+    }
+  
+    // Navigate to other pages if needed
+    Navigate(`/${page}`);
   };
-
-
-  if (page === 'logout') {
-    signOut(auth).then(() => {
-        setIsUser(false);
-        Navigate('/login');
-    }).catch((error) => {
-        console.log(error);
-    });
-    return
-}
-Navigate(`/${page}`)
-
-  };
+  
   return (
     <AppBar position="static">
       <Container maxWidth="xl">

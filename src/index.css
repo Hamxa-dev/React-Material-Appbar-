@@ -2,6 +2,35 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+   
+    font-family: 'Quicksand', sans-serif;
 }
 
 
+/* Global or component-level CSS for scrollbar styling */
+body { 
+  
+    font-size: 20px;
+    background-color: black;
+   color: rgb(255, 255, 255);
+    --sb-track-color: #11006300;
+    --sb-thumb-color: hsla(230, 100%, 58%, 0.509);
+    --sb-size: 10px;
+    
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+  }
+  
+  body::-webkit-scrollbar {
+    width: var(--sb-size);
+  }
+  
+  body::-webkit-scrollbar-track {
+    background: var(--sb-track-color);
+    border-radius: 10px;
+  }
+  
+  body::-webkit-scrollbar-thumb {
+    background: var(--sb-thumb-color);
+    border-radius: 10px;
+  }
+  
