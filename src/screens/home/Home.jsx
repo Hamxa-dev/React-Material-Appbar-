@@ -7,25 +7,29 @@ import {
   deleteDoc,
   doc,
   setDoc,
-} from "firebase/firestore"; // Added 'setDoc'
+} from "firebase/firestore"; 
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
 import { Typography } from "@mui/material";
 
+
+
 const Home = () => {
   const [data, setData] = useState([]);
   const [editingIndex, setEditingIndex] = useState(null);
   const ref = useRef();
   const [loading, setLoading] = useState(false);
+  const userUid = "user's UID here";
 
   useEffect(() => {
     const fetchData = async () => {
       const querySnapshot = await getDocs(collection(db, "todo"));
       const todos = [];
       querySnapshot.forEach((doc) => {
-        todos.unshift({ id: doc.id, todo: doc.data().todo });
+        todos.unshift({ id: doc.id, todo: doc.data().todo ,
+          timestamp: doc.data(),});
       });
       setData(todos);
     };
@@ -100,7 +104,7 @@ const Home = () => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        marginTop: "90px",
+        marginTop: "50px",
       }}
     >
       <form
@@ -111,26 +115,29 @@ const Home = () => {
           alignItems: "center",
         }}
       >
-        <Typography variant="h2" style={{ marginBottom: "30px" }}>
+        <Typography variant="h2" style={{ 
+          marginBottom: "30px", textAlign:"center" }}>
           TODo APP
         </Typography>
         <TextField
           inputRef={ref}
-          label="Todo text box "
           variant="filled"
           placeholder="Enter todo"
           required
           style={{
-            width: "320px",
+            width: "300px",
             border: "2px solid #284cff ",
             borderRadius: "9px",
             backgroundColor: "ButtonHighlight",
-            marginBottom: "10px",
+            marginBottom: "2px",
+            display: "flex",
+            flexDirection: "column",
+            textAlignLast: "center",
           }}
         />
         <Button
           type="submit"
-          style={{ paddingLeft: "120px", paddingRight: "120px" }}
+          style={{ paddingLeft: "110px", paddingRight: "110px" }}
           variant="contained"
           disabled={loading}
         >
@@ -164,7 +171,7 @@ const Home = () => {
               justifyContent: "space-between",
               textOverflow: "ellipsis",
               overflow: "auto",
-              width: "320px",
+              width: "300px",
               height: "70px",
             }}
           >
@@ -203,8 +210,10 @@ const Home = () => {
               </Button>
             </div>
           </li>
+          
         ))}
       </ul>
+      <h6 style={{fontSize:"10px",color:"GrayText" }}>Developed by Hamxa-dev</h6>
     </div>
   );
 };

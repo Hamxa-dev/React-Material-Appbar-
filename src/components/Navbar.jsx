@@ -37,21 +37,23 @@ function ResponsiveAppBar() {
 
     if(isUser){
         pages = [];
-        settings = ['home','logout', 'register']
+        settings = ['home','logout']
     }else{
-        pages = [ 'login', 'register'];
-        settings = [ 'login', 'register'];
-    }
+        pages = ['login', 'register'];
+        settings = ['login', 'register'];
+      }
+      
+      const Navigate = useNavigate()
  
-  const handleOpenNavMenu = (event) => {
-    
+  const handleOpenNavMenu = (event) => { 
     setAnchorElNav(event.currentTarget);
+     
   };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
+    
+    console.log("hellow");
   };
-  
-  const Navigate = useNavigate()
   const handleCloseNavMenu = (page) => {
     setAnchorElNav(null);
     if (page === 'home') {
@@ -65,7 +67,6 @@ function ResponsiveAppBar() {
   };
   const handleCloseUserMenu = (page) => {
     setAnchorElUser(null);
-  
     if (page === 'home') {
       Navigate('/');
       return;
@@ -73,17 +74,18 @@ function ResponsiveAppBar() {
   
     if (page === 'logout') {
       signOut(auth).then(() => {
-          setIsUser(false);
-          Navigate('/login');
+        setIsUser(false);
+        Navigate('/login');
       }).catch((error) => {
-          console.log(error);
+        console.error(error);
       });
       return;
     }
   
     // Navigate to other pages if needed
-    Navigate(`/${page}`);
+    Navigate(page);
   };
+  
   
   return (
     <AppBar position="static">
